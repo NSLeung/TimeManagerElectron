@@ -1,0 +1,42 @@
+extends layout
+block content
+  ul.collection
+    li.collection-item.avatar
+      i.material-icons.circle mood
+      span.title.capitalize= food.foodName
+      p= food.cal + ' calories'
+      //a.secondary-content(href='/diet/'+foodItem._id)
+      a.secondary-content.modal-trigger(href='',data-target='dietModal')
+        i.material-icons edit
+  #dietModal.modal.card
+    .card.row
+      .col.s12
+        form.card.amber.darken-2(method='POST', action='/diet')
+          .card-content.white-text
+            span.card-title Add a Breakfast Item
+            .row
+              .row
+                .input-field.col.s12
+                  input.validate(type='text', autocomplete="off", name='foodName', value=food.foodName)
+                  label(for='text') Name of food
+            
+              .row
+                .input-field.col.s12
+                  input.validate(type='number', autocomplete="off",name="cal")
+                  label(for='number') # Calories
+          .card-action
+            .row 
+              .col.s4
+                mixin submitButton(iconName)
+                  button.btn.waves-effect.waves-light.modal-action(type='submit', value='Submit')
+                    i.material-icons= iconName
+                +submitButton('add')
+              .col.s4
+                button.btn.waves-effect.waves-effect.modal-close.modal-action(type='submit', name='action')
+                  i.material-icons archive
+              .col.s4
+                button.btn.waves-effect.waves-effect.modal-close.modal-action(type='submit', name='action')
+                  i.material-icons cancel
+block testScript
+  script(type='text/javascript', src='https://code.jquery.com/jquery-3.2.1.min.js')
+  script(src="../testscript.js")

@@ -1,0 +1,32 @@
+{
+  "name": "microtrack",
+  "version": "1.0.0",
+  "description": "Simple management app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NSLeung/TimeManagerElectron.git"
+  },
+  "author": "Nayman Leung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NSLeung/TimeManagerElectron/issues"
+  },
+  "homepage": "https://github.com/NSLeung/TimeManagerElectron#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "express": "^4.16.2",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^4.3.0",
+    "materialize-css": "^1.0.0-alpha.1",
+    "mongoose": "^4.13.9",
+    "progressbar.js": "^1.0.1",
+    "pug": "^2.0.0-rc.4",
+    "sweetalert": "^2.1.0"
+  }
+}

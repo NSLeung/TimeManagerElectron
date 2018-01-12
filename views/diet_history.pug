@@ -1,0 +1,14 @@
+extends layout
+block foodTray
+  .container
+    ul.collection
+      each foodItem, i in foods
+        li.collection-item.avatar
+          i.material-icons.circle mood
+          span.title.capitalize.foodNameSpan= foodItem.foodName
+          p= '['+foodItem.mealType+']'
+          p= foodItem.cal + ' calories'
+          a.secondary-content.delete-foodItem(href='/diet/'+foodItem._id, data-id=foodItem._id, style=hideButton.main)
+            i.material-icons= sideIcon
+          //- a.secondary-content.delete-foodItem(data-id=foodItem._id, style=hideButton.edit)
+          //-   i.material-icons= sideIcon

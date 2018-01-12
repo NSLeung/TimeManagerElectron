@@ -1,0 +1,107 @@
+.fixed-action-btn{
+  /*text-align: center-align;*/
+  /*right:300px;/*desired value*/
+}
+.container{
+  margin-top: 20px;
+}
+/*.btn-floating{
+
+  height:250px;
+  width: 250px;
+
+}
+.material-icons{
+  font-size: 40px;
+}*/
+/*.btn-floating.btn-large.add{
+  font-size: 250px;
+  height:250px;
+  width: 250px;
+}*/
+.material-icons.md-36 { font-size: 100px; }
+.col.s12{
+  margin:0px;
+  padding: 0px;
+}
+.col.s4{
+  text-align: center;
+  /*border:2px solid black;*/
+}
+.row{
+  margin: 4px;
+}
+/*card css adjustments*/
+.card.blue-grey, .card.amber, .card.row{
+  margin:0px;
+}
+.cardLabel{
+  color: white;
+  font-size: 16px;
+}
+/*adjust padding settings for card action buttons*/
+button.btn.modal-action{
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 50%;
+}
+/*sticky footer css*/
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+/*progressbar css*/
+.progressbar {
+  margin: 20px;
+  width: 90%;
+  /*this height attribute is actual progressbar height*/
+  height: 30px;
+  /* height: 80%; */
+  position: relative;
+}
+/*created huge white space under footer*/
+/* .progressbar:after{
+  content:"";
+  display: block;
+  padding-bottom: 100%;
+} */
+/*adjust CalorieCount column (in grid) css*/
+/* .col.s4.calorieDisplay{
+  padding-top: 10px;
+} */
+.card-content.calorieStatsFooter{
+  padding-top:5px;
+  padding-bottom: 5px;
+}
+/*height equalizer for columns in grid*/
+#my-row {
+    display: table;
+}
+
+#my-row .mypanel {
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+}
+/*footer css adjustments*/
+.container.footer-container{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+p.footer-para{
+  margin: 5px;
+}
+.page-footer{
+  padding-top:5px;
+}
+/*Capitalize calories in card span*/
+span.title.capitalize{
+  /*hack for capitalizing*/
+  display: inline-block;
+  text-transform: capitalize;
+}

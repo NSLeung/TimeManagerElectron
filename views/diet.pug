@@ -1,0 +1,128 @@
+extends layout
+
+block content
+  .container
+    .row 
+      .col.s4
+        //tag to access /diet/breakfast_add
+        a.btn-floating.btn-large.brown.waves-effect.modal-trigger(href='', data-target=modalType.breakfast, style=dispbool.breakfast)
+          img(src=imgSrc.breakfast, style="filter: invert(1);")
+          i.material-icons= iconbool
+      .col.s4
+        a.btn-floating.btn-large.blue.waves-effect.modal-trigger(href='', data-target=modalType.lunch, style=dispbool.lunch)
+          img(src=imgSrc.lunch, style="filter: invert(1);")
+      .col.s4
+        a.btn-floating.btn-large.red.waves-effect.modal-trigger(href='', data-target=modalType.dinner, style=dispbool.dinner)
+          img(src=imgSrc.dinner, style="filter: invert(1);")
+  #dietModalAddBreakfast.modal.card
+    mixin dietModal(meal, title, action, submitType) 
+      .card.row
+        .col.s12
+          //only append action address when editing form
+          form.card.blue-grey.darken-1(method='POST', action='/diet'+action)
+            .card-content.white-text
+              span.card-title= title+ ' a '+ meal + ' Item'
+              .row
+                .row
+                  input(type='hidden', name='mealType',value=meal)
+                  .input-field.col.s12
+                    input.validate(type='text', autocomplete="off", name='foodName', value=food.foodName)
+                    label(for='text') Name of food
+              
+                .row
+                  .input-field.col.s12
+                    input.validate(type='number', autocomplete="off",name="cal", value=food.cal)
+                    label(for='number') # Calories
+            .card-action
+              .row 
+                .col.s4
+                  mixin submitButton(submitType, onClickFn)
+                    button.btn.waves-effect.waves-light.modal-action(type='submit', value='Submit', onclick=onClickFn)
+                      i.material-icons= submitType
+                  +submitButton(submitType, '')
+                .col.s4
+                  button.btn.waves-effect.waves-effect.modal-close.modal-action(type='submit', name='action')
+                    i.material-icons archive
+                .col.s4
+                  button.btn.waves-effect.waves-effect.modal-close.modal-action(type='submit', name='action')
+                    i.material-icons cancel
+    +dietModal('Breakfast', 'Add','', 'add')
+    //adding lunch item
+  #dietModalAddLunch.modal.card
+    +dietModal('Lunch', 'Add','', 'add')
+    //adding dinner item
+  #dietModalAddDinner.modal.card
+    +dietModal('Dinner', 'Add','', 'add')
+  #dietModalEditBreakfast.modal.card
+    +dietModal('Breakfast', 'Edit','/edit/'+food._id, 'edit')
+  #dietModalEditLunch.modal.card
+    +dietModal('Lunch', 'Edit','/edit/'+food._id, 'edit')
+  #dietModalEditDinner.modal.card
+    +dietModal('Dinner', 'Edit','/edit/'+food._id, 'edit')
+block foodTray
+  //- .container
+  //-   ul
+  //-     each foodItem, i in foods
+  //-       li= foodItem.foodName
+  .container
+    ul.collection
+      each foodItem, i in foods
+        li.collection-item.avatar
+          i.material-icons.circle mood
+          span.title.capitalize.foodNameSpan= foodItem.foodName+' ['+foodItem.mealType+']'
+          //p= '['+foodItem.mealType+']'
+          p= foodItem.cal + ' calories'
+          a.secondary-content.delete-foodItem(href='/diet/'+foodItem._id, data-id=foodItem._id, style=hideButton.main)
+            i.material-icons= sideIcon
+          a.secondary-content.delete-foodItem(data-id=foodItem._id, style=hideButton.edit)
+            i.material-icons= sideIcon
+  a.waves-effect.btn-flat.center-align(href='/diet/diet_history',class="waves-"+navColor, style=showHistory) Show Full History
+
+block calorieOverview 
+  //- .calorieStatsFooter
+  .card
+    .card-content.calorieStatsFooter
+      .row 
+        .col.s6
+          h5 Calorie Stats
+        .col.s6
+          .card-tabs
+            ul.tabs.tabs-fixed-width
+              li.tab
+                a.active(href='#overview') Stats
+              li.tab
+                a(href='#editCal') Edit
+    //- .card-tabs
+    //-   ul.tabs.tabs-fixed-width
+    //-     li.tab
+    //-       a.active(href='#test4') Stats
+    //-     li.tab
+    //-       a(href='#test5') Edit
+    .row#overview
+      .row#my-row
+        .col.s2.calorieDisplay.mypanel
+          h6 <strong>Count</strong>
+          br
+          h6 <strong>Goal</strong>
+        .col.s2.calorieDisplay.mypanel
+          h6.calCountTag  #{calCount} 
+          br         
+          h6.calGoalTag  #{calGoal}
+        .col.s8.mypanel
+          .progressbar#progress
+    .row#editCal
+      form.col.s12(method='POST', action='/diet/editCalGoal')
+        .row#my-row
+          .col.s4.mypanel
+            label Current Goal 
+            h5 #{calGoal}
+          .col.s6.mypanel
+            .input-field(type=text)
+              input.validate(type='number', autocomplete="off", name='calGoal', value=calGoal)
+              label(for='number') Edit Total # Calories
+          .col.s2.mypanel
+            +submitButton('edit', "Materialize.toast('Updated Calorie Goal!', 3000);")
+          
+
+        
+      
