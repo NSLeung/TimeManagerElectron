@@ -7,12 +7,12 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const ProgressBar = require('progressbar.js');
-
+const config = require('./config/database');
 
 //initiate global variables
 var calCount=0;
 var calGoal=2000;
-mongoose.connect('mongodb://localhost/microtrack');
+mongoose.connect(config.database);
 //mongoose.connect('mongodb://localhost/nodekb');
 let db = mongoose.connection;
 
