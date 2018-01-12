@@ -35,6 +35,7 @@ router.get('', function(req,res){
     if(foods.length>2){
       toggleHistory=true;
       showHistory ='';
+      foods=[foods[0], foods[1]];
     }
     else{
       showHistory= 'display: none;'
@@ -49,10 +50,7 @@ router.get('', function(req,res){
         calCount: calCount,
         calGoal: calGoal,
         //only list first 2 (recent) items in food array (don't want to make user scroll a lot)
-        foods: [
-          foods[0],
-          foods[1]
-        ],
+        foods: foods,
         food:{},
         //css props
         navColor: colorArr[rand],
