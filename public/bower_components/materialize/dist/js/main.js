@@ -58,7 +58,6 @@ $(document).ready(function(){
  });
 
  bar.animate(calCount/calGoal);  // Number from 0.0 to 1.0
- //console.log(colorArr[0]);
  //delete FoodItem
  var bob = $('.delete-foodItem')[1];
  $(bob).on('click',function(e){
@@ -90,7 +89,24 @@ $(document).ready(function(){
       }
     });
 
-  });
+  });//end delete function
+  //get current date
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+
+  if(dd<10) {
+      dd = '0'+dd;
+  }
+  if(mm<10) {
+      mm = '0'+mm;
+  }
+  today = mm + '/' + dd + '/' + yyyy;
+  //var logDateInput = $('#logDateInput');
+  //logDateInput.value = today;
+  console.log(today);
+
 });//end document ready
 
 

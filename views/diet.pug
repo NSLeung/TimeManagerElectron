@@ -25,6 +25,7 @@ block content
               .row
                 .row
                   input(type='hidden', name='mealType',value=meal)
+                  input(type='hidden', name='logDate',id='logDateInput')
                   .input-field.col.s12
                     input.validate(type='text', autocomplete="off", name='foodName', value=food.foodName)
                     label(for='text') Name of food
@@ -72,6 +73,7 @@ block foodTray
           span.title.capitalize.foodNameSpan= foodItem.foodName+' ['+foodItem.mealType+']'
           //p= '['+foodItem.mealType+']'
           p= foodItem.cal + ' calories'
+          p= moment(foodItem.logDate).format("MM-DD-YYYY HH:mm")
           a.secondary-content.delete-foodItem(href='/diet/'+foodItem._id, data-id=foodItem._id, style=hideButton.main)
             i.material-icons= sideIcon
           a.secondary-content.delete-foodItem(data-id=foodItem._id, style=hideButton.edit)

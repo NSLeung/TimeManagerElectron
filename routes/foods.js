@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 //bring in food model
 let Food = require('../models/foodItem');
 //initiate global variables
@@ -14,20 +15,47 @@ var colorArr = [
   'purple darken-2',
   'blue darken-1'
 ];
+var foodMasterArr ={
+
+};
 //diet page route (access by adding route /diet at the end of server url)
 router.get('', function(req,res){
   var rand = Math.floor(Math.random() * colorArr.length);
   Food.find({}, function(err, foods){
     //reverse array to get most recent foods at beginning of array
     foods = foods.reverse();
-    console.log(foods);
+    //console.log(foods);
     //compute total calorie calCount
     //reset calCount everytime computation is made
     calCount=0;
     for(var i=0;i<foods.length;i++){
       calCount+=foods[i].cal;
-      //console.log('food'+i+ ' '+foods[i].foodName);
+      //console.log('food '+i+ ' on day: '+moment(foods[i].logDate).format("DD"));
     }
+    //if the foods array has 2 items, then we can compare 2 dates (to test if new day has started)
+    if(foods.length>=2){
+
+    }
+    //check if new day has started (then create new object)
+    var day = moment(foods[0].logDate).format("DD");
+    var day2 = 19;
+    //test making super array
+    //for(var j =0; j<foods.length;j++){
+      foodMasterArr={
+        day:{
+          foods
+        },
+        // day2: {
+        //   foods
+        // }
+      }
+    //}
+    foodMasterArr.day2={foods};
+    //console.log(foodMasterArr);
+    //console.log(foodMasterArr.day.foods[0]);
+    //access unique foods array
+    console.log(foodMasterArr.day2.foods);
+
 
     //toggle view history button (if food array has more than 2 food items), true = show, false=hide
     var toggleHistory = false;
@@ -52,6 +80,7 @@ router.get('', function(req,res){
         //only list first 2 (recent) items in food array (don't want to make user scroll a lot)
         foods: foods,
         food:{},
+        moment: moment,
         //css props
         navColor: colorArr[rand],
         modalType: {
@@ -114,6 +143,7 @@ router.get('/diet_history', function(req,res){
         title: 'History',
         navColor:colorArr[rand],
          foods:foods,
+        moment:moment,
         //css
         hideButton: {
           main: '',
@@ -124,9 +154,6 @@ router.get('/diet_history', function(req,res){
     }
   });
 });
-
-
-
 
 //accessing single food
 router.get('/:id', function(req,res){
@@ -141,6 +168,7 @@ router.get('/:id', function(req,res){
       },
       calCount: calCount,
       calGoal: calGoal,
+      moment: moment,
       //css props
       modalType: {
         //only breakfast icon matters (shortcoming caused by not being able to

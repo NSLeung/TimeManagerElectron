@@ -5,9 +5,9 @@ block foodTray
       each foodItem, i in foods
         li.collection-item.avatar
           i.material-icons.circle mood
-          span.title.capitalize.foodNameSpan= foodItem.foodName
-          p= '['+foodItem.mealType+']'
+          span.title.capitalize.foodNameSpan= foodItem.foodName+' ['+foodItem.mealType+']'
           p= foodItem.cal + ' calories'
+          p= moment(foodItem.logDate).format("MM-DD-YYYY HH:mm")
           a.secondary-content.delete-foodItem(href='/diet/'+foodItem._id, data-id=foodItem._id, style=hideButton.main)
             i.material-icons= sideIcon
           //- a.secondary-content.delete-foodItem(data-id=foodItem._id, style=hideButton.edit)

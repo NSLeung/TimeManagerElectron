@@ -13,6 +13,11 @@ let foodItemSchema = mongoose.Schema({
   cal:{
     type: Number,
     required: true
+  },
+  logDate:{
+    type: Date,
+    default: Date.now,
+    required: true
   }
 });
 //needs to be singular because Mongoose pluralizes collections

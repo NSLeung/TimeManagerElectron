@@ -8,7 +8,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const ProgressBar = require('progressbar.js');
 const config = require('./config/database');
-
+const moment = require('moment');
 //initiate global variables
 var calCount=0;
 var calGoal=2000;
