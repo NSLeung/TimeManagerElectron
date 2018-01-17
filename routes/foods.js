@@ -25,37 +25,54 @@ router.get('', function(req,res){
     //reverse array to get most recent foods at beginning of array
     foods = foods.reverse();
     //console.log(foods);
+
+    //get current date
+    var today = new Date();
+    var currentDay = today.getDate();
+    var currentMon = today.getMonth()+1; //January is 0!
+    var currentYr = today.getFullYear();
+
+    if(currentDay<10) {
+        currentDay = '0'+currentDay;
+    }
+    if(currentMon<10) {
+        currentMon = '0'+currentMon;
+    }
+    today = currentMon + '/' + currentDay + '/' + currentYr;
+    //get day of most recent entry
+    //var day = moment(foods[0].logDate).format("DD");
+    var day2 = 19;
+    //test making super array
+    //for(var j =0; j<foods.length;j++){
+      // foodMasterArr={
+      //   day:{
+      //     foods
+      //   },
+      //   // day2: {
+      //   //   foods
+      //   // }
+      // }
+    //}
+    //foodMasterArr.day2={foods};
+    //console.log(foodMasterArr);
+    //console.log(foodMasterArr.day.foods[0]);
+    //access unique foods array
+    //console.log(foodMasterArr.day2.foods);
+
+
+
     //compute total calorie calCount
     //reset calCount everytime computation is made
     calCount=0;
     for(var i=0;i<foods.length;i++){
-      calCount+=foods[i].cal;
+      //console.log("the current day is: "+currentDay+" and the most recent entry is: "+day);
+      var day = moment(foods[i].logDate).format("DD");
+      //check if user added date is current date
+      if(day ==currentDay){
+        calCount+=foods[i].cal;
+      }
       //console.log('food '+i+ ' on day: '+moment(foods[i].logDate).format("DD"));
     }
-    //if the foods array has 2 items, then we can compare 2 dates (to test if new day has started)
-    if(foods.length>=2){
-
-    }
-    //check if new day has started (then create new object)
-    var day = moment(foods[0].logDate).format("DD");
-    var day2 = 19;
-    //test making super array
-    //for(var j =0; j<foods.length;j++){
-      foodMasterArr={
-        day:{
-          foods
-        },
-        // day2: {
-        //   foods
-        // }
-      }
-    //}
-    foodMasterArr.day2={foods};
-    //console.log(foodMasterArr);
-    //console.log(foodMasterArr.day.foods[0]);
-    //access unique foods array
-    console.log(foodMasterArr.day2.foods);
-
 
     //toggle view history button (if food array has more than 2 food items), true = show, false=hide
     var toggleHistory = false;
@@ -94,7 +111,10 @@ router.get('', function(req,res){
           lunch: '/images/if_food-drink-28_809014.png',
           dinner: '/images/if_food-drink-03_809028.png'
         },
-        iconbool: '',
+        iconbool: {
+          breakfast: '',
+          lunch: ''
+        },
         dispbool: {
           breakfast: 'padding: 3px;padding-right: 4px;',
           dinner: 'padding-top: 2px; padding-left: 2px;'
@@ -174,16 +194,19 @@ router.get('/:id', function(req,res){
         //only breakfast icon matters (shortcoming caused by not being able to
       //have )
         breakfast:'dietModalEdit'+food.mealType,
-        lunch:'dietModalEditLunch',
+        lunch:'dietModalAdd'+food.mealType,
         dinner:'dietModalEditDinner'
       },
       //editIcon: '',
       dispbool: {
         breakfast: '',
-        lunch: 'display:none;',
+        lunch: '',
         dinner: 'display:none;'
       },
-      iconbool: 'edit',
+      iconbool: {
+        breakfast:'edit',
+        lunch: 'add'
+      },
       imgSrc: {
         breakfast: '',
         lunch: '',

@@ -7,10 +7,12 @@ block content
         //tag to access /diet/breakfast_add
         a.btn-floating.btn-large.brown.waves-effect.modal-trigger(href='', data-target=modalType.breakfast, style=dispbool.breakfast)
           img(src=imgSrc.breakfast, style="filter: invert(1);")
-          i.material-icons= iconbool
+          i.material-icons= iconbool.breakfast
       .col.s4
         a.btn-floating.btn-large.blue.waves-effect.modal-trigger(href='', data-target=modalType.lunch, style=dispbool.lunch)
           img(src=imgSrc.lunch, style="filter: invert(1);")
+          i.material-icons= iconbool.lunch
+
       .col.s4
         a.btn-floating.btn-large.red.waves-effect.modal-trigger(href='', data-target=modalType.dinner, style=dispbool.dinner)
           img(src=imgSrc.dinner, style="filter: invert(1);")
@@ -70,6 +72,7 @@ block foodTray
       each foodItem, i in foods
         li.collection-item.avatar
           i.material-icons.circle mood
+          //change to anchor tag to make filterable to use innerHTML, history page heading tabs, collection-header class?
           span.title.capitalize.foodNameSpan= foodItem.foodName+' ['+foodItem.mealType+']'
           //p= '['+foodItem.mealType+']'
           p= foodItem.cal + ' calories'

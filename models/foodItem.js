@@ -20,5 +20,14 @@ let foodItemSchema = mongoose.Schema({
     required: true
   }
 });
+// let testArr = mongoose.Schema({
+//   logDate: {
+//     type: Date,
+//     default: Date.now,
+//     required: true
+//   },
+//   foods: [foodItemSchema]
+// });
 //needs to be singular because Mongoose pluralizes collections
 let Food = module.exports = mongoose.model('Food', foodItemSchema);
+//let Test = module.exports = mongoose.model('Test', testArr);
