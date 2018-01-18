@@ -3,7 +3,10 @@
   /*right:300px;/*desired value*/
 }
 .container{
-  margin-top: 20px;
+  margin-top: 5px;
+}
+.container.foodTray{
+  margin-top: 5px;
 }
 /*.btn-floating{
 
@@ -38,6 +41,9 @@
 .cardLabel{
   color: white;
   font-size: 16px;
+}
+.card{
+  margin-bottom:3px;
 }
 /*adjust padding settings for card action buttons*/
 button.btn.modal-action{

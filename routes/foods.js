@@ -39,28 +39,12 @@ router.get('', function(req,res){
         currentMon = '0'+currentMon;
     }
     today = currentMon + '/' + currentDay + '/' + currentYr;
-    //get day of most recent entry
-    //var day = moment(foods[0].logDate).format("DD");
-    var day2 = 19;
-    //test making super array
-    //for(var j =0; j<foods.length;j++){
-      // foodMasterArr={
-      //   day:{
-      //     foods
-      //   },
-      //   // day2: {
-      //   //   foods
-      //   // }
-      // }
-    //}
-    //foodMasterArr.day2={foods};
-    //console.log(foodMasterArr);
-    //console.log(foodMasterArr.day.foods[0]);
-    //access unique foods array
-    //console.log(foodMasterArr.day2.foods);
 
+    var currFoods = [];
+    //compute unique array of logdates for the collection headers
 
-
+    var temp = moment(foods[0].logDate).format("DD");
+    var logDateHeaders = [temp];
     //compute total calorie calCount
     //reset calCount everytime computation is made
     calCount=0;
@@ -70,21 +54,30 @@ router.get('', function(req,res){
       //check if user added date is current date
       if(day ==currentDay){
         calCount+=foods[i].cal;
+        currFoods.push(foods[i]);
+      }
+      if(day != temp){
+        temp = day;
+        logDateHeaders.push(day);
       }
       //console.log('food '+i+ ' on day: '+moment(foods[i].logDate).format("DD"));
     }
-
+    //console.log(logDateHeaders);
     //toggle view history button (if food array has more than 2 food items), true = show, false=hide
     var toggleHistory = false;
     var showHistory ='';
-    if(foods.length>2){
+    if(currFoods.length>2){
       toggleHistory=true;
       showHistory ='';
-      foods=[foods[0], foods[1]];
+      currFoods=[currFoods[0], currFoods[1]];
+    }
+    else if (currFoods.length==0){
+      //currFoods=placeholderFood;
     }
     else{
       showHistory= 'display: none;'
     }
+
     if(err){
       console.log(err);
     }
@@ -95,9 +88,10 @@ router.get('', function(req,res){
         calCount: calCount,
         calGoal: calGoal,
         //only list first 2 (recent) items in food array (don't want to make user scroll a lot)
-        foods: foods,
+        foods: currFoods,
         food:{},
         moment: moment,
+        //logDateHeaders: logDateHeaders,
         //css props
         navColor: colorArr[rand],
         modalType: {
@@ -154,6 +148,30 @@ router.get('/diet_history', function(req,res){
   var rand = Math.floor(Math.random() * colorArr.length);
   Food.find({}, function(err, foods){
     foods=foods.reverse();
+
+    //initialize temporary comparator
+    var temp = moment(foods[0].logDate).format("MM-DD-YYYY dddd");
+    //initialize foodSorted array
+    var foodSorted={
+      [temp]: []
+    };
+
+    for(var i=0;i<foods.length;i++){
+      //get date of current element
+      var date = moment(foods[i].logDate).format("MM-DD-YYYY dddd");
+      if(date==temp){
+        foodSorted[temp].push(foods[i]);
+      }
+      if(date != temp){
+        temp = date;
+        foodSorted[temp]=[foods[i]];
+        //logDateHeaders.push(date);
+      }
+    }
+
+
+
+
     if(err){
       console.log(err);
     }
@@ -162,7 +180,7 @@ router.get('/diet_history', function(req,res){
       res.render('diet_history', {
         title: 'History',
         navColor:colorArr[rand],
-         foods:foods,
+        foods:foodSorted,
         moment:moment,
         //css
         hideButton: {
@@ -180,12 +198,11 @@ router.get('/:id', function(req,res){
 
   Food.findById(req.params.id, function(err, food){
     //console.log(food.mealType);
+    foods=[food];
     res.render('diet', {
       title: 'Edit Food',
       food: food,
-      foods: {
-        food
-      },
+      foods:foods,
       calCount: calCount,
       calGoal: calGoal,
       moment: moment,

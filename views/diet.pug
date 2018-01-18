@@ -12,7 +12,6 @@ block content
         a.btn-floating.btn-large.blue.waves-effect.modal-trigger(href='', data-target=modalType.lunch, style=dispbool.lunch)
           img(src=imgSrc.lunch, style="filter: invert(1);")
           i.material-icons= iconbool.lunch
-
       .col.s4
         a.btn-floating.btn-large.red.waves-effect.modal-trigger(href='', data-target=modalType.dinner, style=dispbool.dinner)
           img(src=imgSrc.dinner, style="filter: invert(1);")
@@ -67,20 +66,22 @@ block foodTray
   //-   ul
   //-     each foodItem, i in foods
   //-       li= foodItem.foodName
-  .container
-    ul.collection
-      each foodItem, i in foods
-        li.collection-item.avatar
-          i.material-icons.circle mood
-          //change to anchor tag to make filterable to use innerHTML, history page heading tabs, collection-header class?
-          span.title.capitalize.foodNameSpan= foodItem.foodName+' ['+foodItem.mealType+']'
-          //p= '['+foodItem.mealType+']'
-          p= foodItem.cal + ' calories'
-          p= moment(foodItem.logDate).format("MM-DD-YYYY HH:mm")
-          a.secondary-content.delete-foodItem(href='/diet/'+foodItem._id, data-id=foodItem._id, style=hideButton.main)
-            i.material-icons= sideIcon
-          a.secondary-content.delete-foodItem(data-id=foodItem._id, style=hideButton.edit)
-            i.material-icons= sideIcon
+  .container.foodTray
+    ul.collection.with-header
+      li.collection-header
+        h5=moment(foods[0].logDate).format("dddd")
+        each foodItem, i in foods
+          li.collection-item.avatar
+            i.material-icons.circle mood
+            //change to anchor tag to make filterable to use innerHTML, history page heading tabs, collection-header class?
+            span.title.capitalize.foodNameSpan= foodItem.foodName+' ['+foodItem.mealType+']'
+            //p= '['+foodItem.mealType+']'
+            p= foodItem.cal + ' calories'
+            p= moment(foodItem.logDate).format("MM-DD-YYYY HH:mm")
+            a.secondary-content.delete-foodItem(href='/diet/'+foodItem._id, data-id=foodItem._id, style=hideButton.main)
+              i.material-icons= sideIcon
+            a.secondary-content.delete-foodItem(data-id=foodItem._id, style=hideButton.edit)
+              i.material-icons= sideIcon
   a.waves-effect.btn-flat.center-align(href='/diet/diet_history',class="waves-"+navColor, style=showHistory) Show Full History
 
 block calorieOverview 

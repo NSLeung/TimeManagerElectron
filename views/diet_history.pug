@@ -1,14 +1,20 @@
 extends layout
 block foodTray
-  .container
-    ul.collection
-      each foodItem, i in foods
-        li.collection-item.avatar
-          i.material-icons.circle mood
-          span.title.capitalize.foodNameSpan= foodItem.foodName+' ['+foodItem.mealType+']'
-          p= foodItem.cal + ' calories'
-          p= moment(foodItem.logDate).format("MM-DD-YYYY HH:mm")
-          a.secondary-content.delete-foodItem(href='/diet/'+foodItem._id, data-id=foodItem._id, style=hideButton.main)
-            i.material-icons= sideIcon
+  .container.foodTray
+    ul.collection.with-header
+      each foodArr, i in foods
+        li.collection-header
+          h5= i
+        each foodItem, k in foodArr.reverse()
+          //- li.collection-header
+          //-   h6= moment(foodItem.logDate).format("MM-DD-YYYY")
+          //h5= i
+          li.collection-item.avatar
+            i.material-icons.circle mood
+            span.title.capitalize.foodNameSpan= foodItem.foodName+' ['+foodItem.mealType+']'
+            p= foodItem.cal + ' calories'
+            p= moment(foodItem.logDate).format("MM-DD-YYYY HH:mm")
+            a.secondary-content.delete-foodItem(href='/diet/'+foodItem._id, data-id=foodItem._id, style=hideButton.main)
+              i.material-icons= sideIcon
           //- a.secondary-content.delete-foodItem(data-id=foodItem._id, style=hideButton.edit)
-          //-   i.material-icons= sideIcon
+          //-   i.material-icons= si deIcon
