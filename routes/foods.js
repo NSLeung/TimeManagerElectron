@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const moment = require('moment');
+app.locals.moment=require('moment');
 //bring in food model
 let Food = require('../models/foodItem');
 //initiate global variables

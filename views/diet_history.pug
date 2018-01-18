@@ -13,7 +13,7 @@ block foodTray
       each foodArr, i in foods
         li.collection-header
           h5= i
-        each foodItem, k in foodArr
+        each foodItem, k in foodArr.reverse()
           //- li.collection-header
           //-   h6= moment(foodItem.logDate).format("MM-DD-YYYY")
           //h5= i
