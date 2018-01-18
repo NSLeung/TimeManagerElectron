@@ -1,4 +1,12 @@
 extends layout
+block navSearch
+  .container
+    form
+      .input-field
+        input#first_name.validate(placeholder='Apple', type='text')
+        label(for='first_name') Search for food item to add
+        //i.material-icons search
+        //i.material-icons close
 block foodTray
   .container.foodTray
     ul.collection.with-header
