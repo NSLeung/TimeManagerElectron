@@ -28,7 +28,7 @@ db.on('error', function(err){
 
 //init app
 const app = express();
-
+app.locals.moment=require('moment');
 //bring in models (give pathname)
 let Food = require('./models/foodItem');
 
