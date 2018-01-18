@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const moment = require('moment');
-app.locals.moment=require('moment');
+//app.locals.moment=require('moment');
 //bring in food model
 let Food = require('../models/foodItem');
 //initiate global variables
@@ -91,7 +91,7 @@ router.get('', function(req,res){
         //only list first 2 (recent) items in food array (don't want to make user scroll a lot)
         foods: currFoods,
         food:{},
-        moment: moment,
+        moment: require('moment'),
         //logDateHeaders: logDateHeaders,
         //css props
         navColor: colorArr[rand],
@@ -206,7 +206,7 @@ router.get('/:id', function(req,res){
       foods:foods,
       calCount: calCount,
       calGoal: calGoal,
-      moment: moment,
+      moment: require('moment'),
       //css props
       modalType: {
         //only breakfast icon matters (shortcoming caused by not being able to
