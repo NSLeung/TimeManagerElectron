@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const moment = require('moment');
+
 //app.locals.moment=require('moment');
 //bring in food model
 let Food = require('../models/foodItem');
@@ -18,6 +19,10 @@ var colorArr = [
 ];
 var foodMasterArr ={
 
+};
+var showPlaceholder={
+  foodTray: "",
+  warning: ""
 };
 //diet page route (access by adding route /diet at the end of server url)
 router.get('', function(req,res){
@@ -42,6 +47,12 @@ router.get('', function(req,res){
     today = currentMon + '/' + currentDay + '/' + currentYr;
 
     var currFoods = [];
+    var placeholder = new Food();
+    placeholder.logDate = "";
+    var showPlaceholder={
+      foodTray: "",
+      warning: "display:none;"
+    };
     //compute unique array of logdates for the collection headers
 
     var temp = moment(foods[0].logDate).format("DD");
@@ -73,16 +84,23 @@ router.get('', function(req,res){
       currFoods=[currFoods[0], currFoods[1]];
     }
     else if (currFoods.length==0){
-      //currFoods=placeholderFood;
+      currFoods.push(placeholder);
+      showPlaceholder.foodTray = "display: none;";
+      showPlaceholder.warning = "";
+      showHistory= 'display: none;';
+      buttonPulse="pulse";
     }
     else{
-      showHistory= 'display: none;'
+      showHistory= 'display: none;';
+      buttonPulse='';
+      showPlaceholder.warning = "display:none;";
     }
 
     if(err){
       console.log(err);
     }
     else{
+      console.log(currFoods);
       //load diet.pug, send values
       res.render('diet', {
         title: 'Diet',
@@ -91,10 +109,12 @@ router.get('', function(req,res){
         //only list first 2 (recent) items in food array (don't want to make user scroll a lot)
         foods: currFoods,
         food:{},
-        moment: require('moment'),
+        moment: moment,
         //logDateHeaders: logDateHeaders,
         //css props
         navColor: colorArr[rand],
+        showPlaceholder: showPlaceholder,
+        buttonPulse: buttonPulse,
         modalType: {
           breakfast:'dietModalAddBreakfast',
           lunch:'dietModalAddLunch',
@@ -200,14 +220,16 @@ router.get('/:id', function(req,res){
   Food.findById(req.params.id, function(err, food){
     //console.log(food.mealType);
     foods=[food];
+    showPlaceholder.warning="display:none;";
     res.render('diet', {
       title: 'Edit Food',
       food: food,
       foods:foods,
       calCount: calCount,
       calGoal: calGoal,
-      moment: require('moment'),
+      moment: moment,
       //css props
+      showPlaceholder: showPlaceholder,
       modalType: {
         //only breakfast icon matters (shortcoming caused by not being able to
       //have )

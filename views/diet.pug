@@ -5,15 +5,15 @@ block content
     .row 
       .col.s4
         //tag to access /diet/breakfast_add
-        a.btn-floating.btn-large.brown.waves-effect.modal-trigger(href='', data-target=modalType.breakfast, style=dispbool.breakfast)
+        a.btn-floating.btn-large.brown.waves-effect.modal-trigger(href='', data-target=modalType.breakfast, style=dispbool.breakfast, class=buttonPulse)
           img(src=imgSrc.breakfast, style="filter: invert(1);")
           i.material-icons= iconbool.breakfast
       .col.s4
-        a.btn-floating.btn-large.blue.waves-effect.modal-trigger(href='', data-target=modalType.lunch, style=dispbool.lunch)
+        a.btn-floating.btn-large.blue.waves-effect.modal-trigger(href='', data-target=modalType.lunch, style=dispbool.lunch, class=buttonPulse)
           img(src=imgSrc.lunch, style="filter: invert(1);")
           i.material-icons= iconbool.lunch
       .col.s4
-        a.btn-floating.btn-large.red.waves-effect.modal-trigger(href='', data-target=modalType.dinner, style=dispbool.dinner)
+        a.btn-floating.btn-large.red.waves-effect.modal-trigger(href='', data-target=modalType.dinner, style=dispbool.dinner, class=buttonPulse)
           img(src=imgSrc.dinner, style="filter: invert(1);")
   #dietModalAddBreakfast.modal.card
     mixin dietModal(meal, title, action, submitType) 
@@ -66,7 +66,7 @@ block foodTray
   //-   ul
   //-     each foodItem, i in foods
   //-       li= foodItem.foodName
-  .container.foodTray
+  .container.foodTray(style=showPlaceholder.foodTray)
     ul.collection.with-header
       li.collection-header
         h5=moment(foods[0].logDate).format("dddd")
@@ -83,7 +83,8 @@ block foodTray
             a.secondary-content.delete-foodItem(data-id=foodItem._id, style=hideButton.edit)
               i.material-icons= sideIcon
   a.waves-effect.btn-flat.center-align(href='/diet/diet_history',class="waves-"+navColor, style=showHistory) Show Full History
-
+  .container(style=showPlaceholder.warning).center-align.valign-wrapper
+    h4 Enter a food item to start the day!
 block calorieOverview 
   //- .calorieStatsFooter
   .card
